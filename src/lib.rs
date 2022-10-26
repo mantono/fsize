@@ -6,7 +6,7 @@ use crate::Size::Kilobyte;
 use crate::Size::Megabyte;
 use crate::Size::Terabyte;
 use parse::parse;
-use parse::Parts;
+use parse::State;
 use std::{convert::TryFrom, str::FromStr};
 
 #[derive(Debug, PartialEq, Eq)]
@@ -34,7 +34,7 @@ impl FromStr for Size {
     type Err = ParseError;
 
     fn from_str(value: &str) -> Result<Self, Self::Err> {
-        let parts: Parts = parse(value.as_bytes().to_vec())?;
+        let parts: State = parse(value.as_bytes().to_vec())?;
         let (size, chr) = (parts.num(), parts.unit());
         let chr: char = match chr {
             Some(c) => c.to_lowercase().next().ok_or(ParseError::InvalidUnit(c))?,
@@ -65,6 +65,7 @@ impl TryFrom<&str> for Size {
 #[derive(Debug, PartialEq, Eq)]
 pub enum ParseError {
     Empty,
+    NoNum,
     InvalidByte(u8),
     InvalidUnit(char),
     MultiChar,

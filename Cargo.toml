@@ -1,8 +1,11 @@
 [package]
-name = "size"
+name = "fsize"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Anton Österberg <anton@42x.io>"]
+description = "Parse sizes used in file systems"
+license = "MIT"
+keywords = ["size", "files", "filesystem", "fs", "parse"]
+categories = ["parsing"]
 
 [dependencies]
