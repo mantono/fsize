@@ -9,7 +9,7 @@ use parse::parse;
 use parse::State;
 use std::{convert::TryFrom, str::FromStr};
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Size {
     Byte(u64),
     Kilobyte(u64),
