@@ -33,6 +33,17 @@ impl Size {
 impl FromStr for Size {
     type Err = ParseError;
 
+    /// Parse a string value to a size representing common sizes used by file systems to desdribe
+    /// the size of a file. For example `32k` would be interpreted as 32 kilobytes or `32 * 1024
+    /// bytes` (32768 bytes).
+    /// ```
+    /// # fn main() -> Result<(), fsize::ParseError> {
+    /// let size: fsize::Size = "32k".parse()?;
+    /// assert_eq!(fsize::Size::Kilobyte(32), size);
+    /// assert_eq!(32768, size.as_bytes());
+    /// # Ok(())
+    /// # }
+    /// ```
     fn from_str(value: &str) -> Result<Self, Self::Err> {
         let parts: State = parse(value.as_bytes().to_vec())?;
         let (size, chr) = (parts.num(), parts.unit());
